@@ -244,10 +244,10 @@ void OdomEstimationClass::addPointsToMap(const pcl::PointCloud<pcl::PointXYZRGB>
     cropBoxFilter.setInputCloud(laserCloudCornerMap);
     cropBoxFilter.filter(*tmpCorner);
 
-    downSizeFilterEdge.setInputCloud(tmpSurf);
-    downSizeFilterEdge.filter(*laserCloudSurfMap);
-    downSizeFilterSurf.setInputCloud(tmpCorner);
-    downSizeFilterSurf.filter(*laserCloudCornerMap);
+    downSizeFilterSurf.setInputCloud(tmpSurf);
+    downSizeFilterSurf.filter(*laserCloudSurfMap);
+    downSizeFilterEdge.setInputCloud(tmpCorner);
+    downSizeFilterEdge.filter(*laserCloudCornerMap);
 
 }
 
