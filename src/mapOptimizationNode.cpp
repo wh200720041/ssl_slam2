@@ -132,7 +132,7 @@ void map_optimization(){
                 pcl::toROSMsg(*(mapOptimization.edgeMap)+*(mapOptimization.surfMap), PointsMsg);
                 ROS_INFO("Edge Map size:%d, Surf Map Size:%d", (mapOptimization.edgeMap)->points.size(), (mapOptimization.surfMap)->points.size());
                 PointsMsg.header.stamp = pointcloud_time;
-                PointsMsg.header.frame_id = "/map";
+                PointsMsg.header.frame_id = "map";
                 map_pub.publish(PointsMsg);
             } 
 
