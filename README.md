@@ -3,7 +3,7 @@
 
 ### This repo is an extension work of [SSL_SLAM](https://github.com/wh200720041/SSL_SLAM). Similar to RTABMAP, SSL_SLAM2 separates the mapping module and localization module. Map saving and map optimization is enabled in the mapping unit. Map loading and localization is enabled in the localziation unit.
 
-This code is an implementation of paper "Lightweight 3-D Localization and Mapping for Solid-State LiDAR", published in IEEE Robotics and Automation Letters, 2021
+This code is an implementation of paper "Lightweight 3-D Localization and Mapping for Solid-State LiDAR", published in IEEE Robotics and Automation Letters, 2021 [paper](https://arxiv.org/pdf/2102.03800.pdf)
 
 A summary video demo can be found at [Video](https://youtu.be/Uy_2MKwUDN8) 
 
@@ -47,7 +47,10 @@ Follow [PCL Installation](http://www.pointclouds.org/downloads/linux.html).
 
 Tested with 1.8.1
 
-### 2.4. **Trajectory visualization**
+### 2.4. **GTSAM**
+Follow [GTSAM Installation](https://gtsam.org/get_started/).
+
+### 2.5. **Trajectory visualization**
 For visualization purpose, this package uses hector trajectory sever, you may install the package by 
 ```
 sudo apt-get install ros-melodic-hector-trajectory-server
@@ -85,7 +88,14 @@ Copy [realsense_ros](https://github.com/IntelRealSense/realsense-ros) package to
 ```
 
 ### 4.2 Download test rosbag
-You may download our recorded data: [MappingTest.bag](https://drive.google.com/file/d/1wTwvzGVUZk5I-hPK5ZabrjOnY_3k3D9G/view?usp=sharing) (6G) and [LocalizationTest.bag](https://drive.google.com/file/d/19pRMegOLj30cw60fj03xgJ2MvgVsOr7Y/view?usp=sharing) (11G)if you dont have realsense L515, and by defult the file should be under home/user/Downloads
+You may download our recorded data: [MappingTest.bag](https://drive.google.com/file/d/1XRXKkq3TsUiM4o9_bWL8t9HqWHswfgWo/view?usp=sharing) (3G) and [LocalizationTest.bag](https://drive.google.com/file/d/1-5j_jgraus0gJkpFRZS5hFUiKlT7aQtG/view?usp=sharing) (6G)if you dont have realsense L515, and by defult the file should be under home/user/Downloads
+
+unzip the file (it may take a while to unzip) 
+```
+cd ~/Downloads
+unzip LocalizationTest.zip
+unzip MappingTest.zip
+```
 
 ### 4.3 Map Building
 map optimization and building
@@ -135,10 +145,15 @@ You can do thid by setting the
 ```
 1 implies no skip frames, i.e., 30Hz;  implies skip 1 frames, i.e., 15Hz. For small map building, you can do it online. however, it is recommended to record a rosbag and build map offline for large mapping since the dense map cannot be generated in real-time.
 
-
 ## 5 Map Building with multiple loop closure places 
 ### 5.1 Dataset
-You may download a larger dataset [LargeMappingTest.bag](https://drive.google.com/file/d/1GnitL01-kb3hNeA_KbOZzxgAl46fXj3m/view?usp=sharing) (17G) if you dont have realsense L515, and by defult the file should be under home/user/Downloads
+You may download a larger dataset [LargeMappingTest.bag](https://drive.google.com/file/d/18HWUpgv7G6MV6brtbA4uEluTOgxDEdX3/view?usp=sharing) (10G), and by defult the file should be under home/user/Downloads
+
+unzip the file (it may take a while to unzip) 
+```
+cd ~/Downloads
+unzip LargeMappingTest.zip
+```
 
 ### 5.2 Map Building
 Two loop closure places appear at frame 0-1260 and 1270-3630, i.e., frame 0 and frame 1260 are the same place, frame 1270 adn 3630 are the same place. Run
