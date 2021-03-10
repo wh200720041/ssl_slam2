@@ -1,7 +1,7 @@
 # SSL_SLAM2
 ## Lightweight 3-D Localization and Mapping for Solid-State LiDAR (Intel Realsense L515 as an example)
 
-## This repo is an extension work of [SSL_SLAM](https://github.com/wh200720041/SSL_SLAM). Similar to RTABMAP, SSL_SLAM2 separates the mapping module and localization module. Map saving and map optimization is enabled in the mapping unit. Map loading and localization is enabled in the localziation unit.
+### This repo is an extension work of [SSL_SLAM](https://github.com/wh200720041/SSL_SLAM). Similar to RTABMAP, SSL_SLAM2 separates the mapping module and localization module. Map saving and map optimization is enabled in the mapping unit. Map loading and localization is enabled in the localziation unit.
 
 This code is an implementation of paper "Lightweight 3-D Localization and Mapping for Solid-State LiDAR", published in IEEE Robotics and Automation Letters, 2021
 
@@ -74,7 +74,6 @@ Copy [realsense_ros](https://github.com/IntelRealSense/realsense-ros) package to
     catkin_make
 ```
 
-
 ## 4. Build SSL_SLAM2
 ### 4.1 Clone repository:
 ```
@@ -86,16 +85,14 @@ Copy [realsense_ros](https://github.com/IntelRealSense/realsense-ros) package to
 ```
 
 ### 4.2 Download test rosbag
-You may download our [recorded data](https://drive.google.com/file/d/1ZY6Kp5MEGBRoSP6cU2YjNTg5qsy8wNIe/view?usp=sharing) if you dont have realsense L515, and by defult the file should be under home/user/Downloads
+You may download our recorded data: [MappingTest.bag](https://drive.google.com/file/d/1wTwvzGVUZk5I-hPK5ZabrjOnY_3k3D9G/view?usp=sharing) (6G) and [LocalizationTest.bag](https://drive.google.com/file/d/19pRMegOLj30cw60fj03xgJ2MvgVsOr7Y/view?usp=sharing) (11G)if you dont have realsense L515, and by defult the file should be under home/user/Downloads
 
 ### 4.3 Map Building
 map optimization and building
 ```
     roslaunch ssl_slam2 ssl_slam2_mapping.launch
 ```
-The map optimization is performed based on loop closure, you have to specify the loop clousre manually in order to trigger global optimization, 
-
-To save map, open a new terminal and 
+The map optimization is performed based on loop closure, you have to specify the loop clousre manually in order to trigger global optimization. To save map, open a new terminal and 
 ```
   rosservice call /save_map
 ```
@@ -104,11 +101,11 @@ For example, in the rosbag provided, the loop closure appears at frame 1060-1120
 ```
   rosservice call /save_map
 ```
-since the current frame is between 1060 and 1120, the loop closure will be triggered automatically and the global map will be optimized and saved 
+Since the current frame is between 1060 and 1120, the loop closure will be triggered automatically and the global map will be optimized and saved 
 
 ### 4.4 Localization
 
-localization 
+Type
 ```
     roslaunch ssl_slam2 ssl_slam2_localization.launch
 ```
@@ -116,6 +113,7 @@ If your map is large, it may takes a while to load
 
 ### 4.5 Parameters Explanation
 The map size depends on number of keyframes used. The more keyframes used for map buildin, the larger map will be. 
+
 min_map_update_distance: distance threshold to add a keyframe. higher means lower update rate. 
 min_map_update_angle: angle threshold to add a keyframe. higher means lower update rate. 
 min_map_update_frame: time threshold to add a keyframe. higher means lower update rate. 
@@ -140,7 +138,7 @@ You can do thid by setting the
 
 ## 5 Map Building with multiple loop closure places 
 ### 5.1 Dataset
-You may download a larger dataset [LargeMappingTest](https://drive.google.com/file/d/1ZY6Kp5MEGBRoSP6cU2YjNTg5qsy8wNIe/view?usp=sharing) if you dont have realsense L515, and by defult the file should be under home/user/Downloads
+You may download a larger dataset [LargeMappingTest.bag](https://drive.google.com/file/d/1GnitL01-kb3hNeA_KbOZzxgAl46fXj3m/view?usp=sharing) (17G) if you dont have realsense L515, and by defult the file should be under home/user/Downloads
 
 ### 5.2 Map Building
 Two loop closure places appear at frame 0-1260 and 1270-3630, i.e., frame 0 and frame 1260 are the same place, frame 1270 adn 3630 are the same place. Run
