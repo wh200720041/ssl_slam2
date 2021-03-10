@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<launch>
+    
+    <node name="bag" pkg="rosbag" type="play" args="--clock -r 0.5 -d 5 $(env HOME)/Downloads/LocalizationTest.bag" />
+    <param name="/use_sim_time" value="true" /> 
+
+    <param name="scan_period" value="0.1" />
+    <param name="vertical_angle" type="double" value="2.0" />
+    <param name="max_dis" type="double" value="9.0" />
+    <param name="map_resolution" type="double" value="0.05" />
+    <param name="min_dis" type="double" value="0.1" />
+    <param name="skip_frames" type="int" value="1" />
+    <param name="map_path" type="str" value="$(find ssl_slam2)/map/" />
+    <!-- set initial location -->
+    <param name="offset_x" type="double" value="0.0" />
+    <param name="offset_y" type="double" value="0.0" />
+    <param name="offset_yaw" type="double" value="0.0" />
+
+    <node pkg="ssl_slam2" type="ssl_slam2_laser_processing_node" name="ssl_slam2_laser_processing_node" output="screen"/>
+    <node pkg="ssl_slam2" type="ssl_slam2_odom_estimation_localization_node" name="ssl_slam2_odom_estimation_localization_node" output="screen"/>
+
+    <node pkg="tf" type="static_transform_publisher" name="word2map_tf"  args="0.0 0 0.0 0 0 0 /base_link /camera_link 10" />
+      
+    <arg name="rviz" default="true" />
+    <group if="$(arg rviz)">
+        <node launch-prefix="nice" pkg="rviz" type="rviz" name="rviz" args="-d $(find ssl_slam2)/rviz/SSLLocalization.rviz" />
+    </group>
+
+    <node pkg="hector_trajectory_server" type="hector_trajectory_server" name="trajectory_server_ssl_slam" ns="ssl_slam2" >
+        <param name="/target_frame_name" value="map" />
+        <param name="/source_frame_name" value="base_link" />
+        <param name="/trajectory_update_rate" value="10.0" />
+        <param name="/trajectory_publish_rate" value="10.0" />
+    </node>
+
+
+</launch>
